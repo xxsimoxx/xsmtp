@@ -31,13 +31,12 @@ class XSMTP {
 
 
 	public function __construct() {
+		add_action('phpmailer_init', 'phpmailer_settings');
 		add_action('admin_menu', [$this, 'create_menu'], 100);
 		add_action('admin_enqueue_scripts', [$this, 'scripts']);
 		add_filter('plugin_action_links', [$this, 'settings_link'], 10, 2);
-
-		add_action('phpmailer_init', 'phpmailer_settings');
-
 		add_action('plugins_loaded', [$this, 'text_domain']);
+		register_uninstall_hook(__FILE__, [__CLASS__, 'uninstall']);
 	}
 
 	public function text_domain() {
@@ -257,6 +256,13 @@ class XSMTP {
 <td><input name="test-email-subject" type="text" id="test-email-subject" value="'.esc_attr($options['test-email-subject']).'" class="regular-text"></td></tr>
 <tr><th scope="row"><label for="test-email-message">'.esc_html__('Email Message', 'xsmtp').'</label></th>
 <td><input name="test-email-message" type="text" id="test-email-message" value="'.esc_attr($options['test-email-message']).'" class="regular-text"></td></tr></table>';
+	}
+
+	public static function uninstall() {
+		if (!current_user_can('delete_plugins')) {
+			return;
+		}
+		delete_option(self::SLUG.'_settings');
 	}
 
 }
