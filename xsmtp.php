@@ -33,6 +33,7 @@ class XSMTP {
 	public function __construct() {
 		add_action('admin_menu', [$this, 'create_menu'], 100);
 		add_action('admin_enqueue_scripts', [$this, 'scripts']);
+		add_filter('plugin_action_links', [$this, 'settings_link'], 10, 2);
 
 		add_action('phpmailer_init', 'phpmailer_settings');
 
@@ -41,6 +42,14 @@ class XSMTP {
 
 	public function text_domain() {
 		load_plugin_textdomain('xsx-bpu', false, basename(dirname(__FILE__)).'/languages');
+	}
+
+	public function settings_link($links, $plugin_file_name) {
+		if (strpos($plugin_file_name, basename(__FILE__)) !== false) {
+			$setting_link = '<a href="'.admin_url('options-general.php?page='.self::SLUG).'">'.esc_html__('Settings', 'xsmtp').'</a>';
+			array_unshift($links, $setting_link);
+		}
+		return $links;
 	}
 
 	private function get_default_options() {
