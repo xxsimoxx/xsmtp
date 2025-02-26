@@ -35,7 +35,7 @@ class XSMTP {
 	];
 
 	public function __construct() {
-		add_action('phpmailer_init', 'phpmailer_settings');
+		add_action('phpmailer_init', 'phpmailer_settings', apply_filters('xsmtp-phpmailer-priority', 10));
 		add_action('admin_menu', [$this, 'create_menu'], 100);
 		add_action('admin_enqueue_scripts', [$this, 'scripts']);
 		add_filter('plugin_action_links', [$this, 'settings_link'], 10, 2);
