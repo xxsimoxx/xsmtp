@@ -27,6 +27,8 @@ class XSMTP {
 	use Helpers;
 
 	private $screen = '';
+	private $options = false;
+
 	const SLUG = 'xsmtp';
 
 
@@ -87,6 +89,9 @@ class XSMTP {
 	}
 
 	public function get_options() {
+		if ($this->options !== false) {
+			return $this->options;
+		}
 		return get_option(self::SLUG.'_settings', $this->get_default_options());
 	}
 
