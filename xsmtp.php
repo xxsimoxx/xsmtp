@@ -30,7 +30,9 @@ class XSMTP {
 	private $options = false;
 
 	const SLUG = 'xsmtp';
-
+	const CANIMPORT = [
+		'azrcrv-smtp'  => 'SMTP by azurecurve',
+	];
 
 	public function __construct() {
 		add_action('phpmailer_init', 'phpmailer_settings');
@@ -115,6 +117,36 @@ class XSMTP {
 
 		add_action('load-'.$this->screen, [$this, 'save_action']);
 		add_action('load-'.$this->screen, [$this, 'test_action']);
+		add_action('load-'.$this->screen, [$this, 'import_action']);
+	}
+
+	private function maybe_suggest_import() {
+		$options = $this->get_options();
+		if ($options['smtp-host'] !== '') {
+			return;
+		}
+
+		$string = '';
+		foreach (self::CANIMPORT as $opt => $name) {
+			if (get_option($opt, false) === false) {
+				continue;
+			}
+			$url = add_query_arg([
+				'page' => self::SLUG,
+				'action' => 'import',
+				'settings' => $opt,
+				'_xsmtp' => wp_create_nonce('import'),
+			]);
+			$string .= '<a href ="'.$url.'" >';
+			$string .= sprintf(esc_html__('Import settings from %s', 'xsmtp'), esc_html($name));
+			$string .= '</a> | ';
+		}
+
+		if ($string === '') {
+			return;
+		}
+
+		echo '<div class="xsmtp-import">'.esc_html__('Seems that a configuration can be imported.', 'xsmtp').'<br>'.wp_kses_post(trim($string, ' |')).'</div>';
 	}
 
 	public function scripts($hook) {
@@ -127,6 +159,7 @@ class XSMTP {
 	public function render_page() {
 		echo '<div class="wrap"><h1>'.esc_html(get_admin_page_title()).'</h1>';
 		$this->display_notices('xsmtp_notices');
+		$this->maybe_suggest_import();
 		$tabs = [
 				'tab1' => esc_html__('SMTP Settings', 'xsmtp'),
 				'tab2' => esc_html__('Test', 'xsmtp'),
@@ -191,6 +224,44 @@ class XSMTP {
 		$this->send_test();
 
 		$sendback = remove_query_arg(['action', '_xsmtp'], wp_get_referer());
+		wp_safe_redirect($sendback);
+		exit;
+	}
+
+	public function import_action() {
+		if ($this->before_action_checks('import') !== true) {
+			return;
+		}
+
+		if (!isset($_REQUEST['settings'])) { // phpcs:ignore WordPress.Security.NonceVerification.Recommended
+			return;
+		}
+
+		$from = sanitize_key(wp_unslash($_REQUEST['settings'])); // phpcs:ignore WordPress.Security.NonceVerification.Recommended
+
+		if (!array_key_exists($from, self::CANIMPORT)) {
+			return;
+		}
+
+		$options = $this->get_options();
+
+		switch ($from) {
+			case 'azrcrv-smtp':
+				$azrcrv_smtp = get_option('azrcrv-smtp', []);
+				foreach ($options as $key => $value) {
+					if (!isset($azrcrv_smtp[$key])) {
+						continue;
+					}
+					$options[$key] = $azrcrv_smtp[$key];
+				}
+				break;
+
+		}
+
+		$this->set_options($options);
+
+		$this->add_notice('xsmtp_notices', esc_html__('Options imported. Please check the new settings.', 'xsmtp'), false);
+		$sendback = remove_query_arg(['action', 'settings', '_xsmtp'], wp_get_referer());
 		wp_safe_redirect($sendback);
 		exit;
 	}
