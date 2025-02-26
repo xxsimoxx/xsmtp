@@ -26,7 +26,7 @@ class XSMTP {
 
 	use Helpers;
 
-	private $screen = '';
+	private $screen  = '';
 	private $options = false;
 
 	const SLUG = 'xsmtp';
@@ -76,6 +76,7 @@ class XSMTP {
 		if ($opts['smtp-host'] === '') {
 			return;
 		}
+
 		$phpmailer->Mailer     = 'smtp';
 		$phpmailer->SMTPAuth   = $opts['smtp-encryption-type'] !== 'none';
 		$phpmailer->Host       = $opts['smtp-host'];
@@ -290,7 +291,6 @@ class XSMTP {
 			$this->add_notice('xsmtp_notices', '<b>'.esc_html__('An error occurred.', 'xsmtp').'</b><br>'.$error, true);
 		}
 	}
-
 
 	private function render_settings() {
 		$options = $this->get_options();
