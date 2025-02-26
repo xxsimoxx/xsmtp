@@ -44,7 +44,7 @@ class XSMTP {
 	}
 
 	public function text_domain() {
-		load_plugin_textdomain('xsx-bpu', false, basename(dirname(__FILE__)).'/languages');
+		load_plugin_textdomain('xsmtp', false, basename(dirname(__FILE__)).'/languages');
 	}
 
 	public function settings_link($links, $plugin_file_name) {
