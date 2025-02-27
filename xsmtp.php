@@ -119,6 +119,7 @@ class XSMTP {
 		add_action('load-'.$this->screen, [$this, 'save_action']);
 		add_action('load-'.$this->screen, [$this, 'test_action']);
 		add_action('load-'.$this->screen, [$this, 'import_action']);
+		add_action('load-'.$this->screen, [$this, 'help']);
 	}
 
 	private function maybe_suggest_import() {
@@ -334,11 +335,45 @@ class XSMTP {
 <td><input name="test-email-message" type="text" id="test-email-message" value="'.esc_attr($options['test-email-message']).'" class="regular-text"></td></tr></table>';
 	}
 
+	public function help() {
+		$general_content = wp_kses(
+			__(
+				'<b>Improve ClassicPress email deliverability.</b><br>
+				Configure a SMTP server to send email from your site.<br>
+				From this page you can configure the parameters of the SMTP server that will be used to send the e-mail.<br>
+				Notice that servers using OAuth (like gmail.com) are not supported.<br>
+				This plugin is multisite compatible. Each site should be configured.',
+				'xsmtp'
+			),
+			[
+				'b'  => [],
+				'br' => [],
+			]
+		);
+
+		$screen = get_current_screen();
+		$screen->add_help_tab(
+			[
+				'id'	  => 'xsmtp_help_tab_general',
+				'title'	  => esc_html__('Usage', 'xsmtp'),
+				'content' => '<p>'.$general_content.'</p>',
+			]
+		);
+	}
+
 	public static function uninstall() {
-		if (!current_user_can('delete_plugins')) {
-			return;
+		if (!is_multisite()) {
+			delete_option(self::SLUG.'_settings');
+		} else {
+			global $wpdb;
+			$ids     = $wpdb->get_col("SELECT blog_id FROM $wpdb->blogs");
+			$current = get_current_site_id();
+			foreach ($ids as $id) {
+				switch_to_blog($id);
+				delete_option(self::SLUG.'_settings');
+			}
+			switch_to_blog($current);
 		}
-		delete_option(self::SLUG.'_settings');
 	}
 
 }
