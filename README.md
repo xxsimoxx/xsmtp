@@ -2,12 +2,14 @@
 
 # X SMTP
 
-*Improve ClassicPress email deliverability.*
+**Improve ClassicPress email deliverability.**
 
 Configure a SMTP server to send email from your site.
-From this page you can configure the parameters of the SMTP server that will be used to send the e-mail.
-Notice that servers using OAuth (like gmail.com) are not supported.
-his plugin is multisite compatible. Each site should be configured.
+Adds a page under "General Settings" where you can configure the parameters of the SMTP server that will be used to send the e-mail.
+
+*Notice that servers using OAuth (like gmail.com) are not supported.*
+
+This plugin is multisite compatible. Each site should be configured.
 
 ### Filters
 
