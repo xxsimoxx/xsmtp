@@ -1,17 +1,17 @@
 <?php
 /**
- * Plugin Name: X SMTP
- * Plugin URI: https://software.gieffeedizioni.it
- * Description: Easily configure Simple Mail Transport Protocol (SMTP).
- * Version: 1.0.0
- * License: GPL2
- * License URI: https://www.gnu.org/licenses/gpl-2.0.html
- * Author: Gieffe edizioni srl
- * Author URI: https://www.gieffeedizioni.it
+ * Plugin Name:  X SMTP
+ * Plugin URI:   https://software.gieffeedizioni.it
+ * Description:  Easily configure Simple Mail Transport Protocol (SMTP).
+ * Version:      1.0.0
+ * License:      GPL2
+ * License URI:  https://www.gnu.org/licenses/gpl-2.0.html
+ * Author:       Gieffe edizioni srl
+ * Author URI:   https://www.gieffeedizioni.it
  * Requires PHP: 7.4
- * Requires CP: 2.0
- * Text Domain: xsmtp
- * Domain Path: /languages
+ * Requires CP:  2.0
+ * Text Domain:  xsmtp
+ * Domain Path:  /languages
  */
 
 namespace XXSimoXX\XSMTP;
