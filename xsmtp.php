@@ -185,7 +185,9 @@ class XSMTP {
 			$this->render_test();
 			echo '<input type="submit" class="button button-primary" id="submit_button" value="'.esc_html__('Send', 'xsmtp').'"></input></form>';
 		}
-		echo '</form></div>';
+		echo '</form>';
+		$this->maybe_render_conflicts();
+		echo '</div>';
 	}
 
 	public function save_action() {
@@ -333,6 +335,54 @@ class XSMTP {
 <td><input name="test-email-subject" type="text" id="test-email-subject" value="'.esc_attr($options['test-email-subject']).'" class="regular-text"></td></tr>
 <tr><th scope="row"><label for="test-email-message">'.esc_html__('Email Message', 'xsmtp').'</label></th>
 <td><input name="test-email-message" type="text" id="test-email-message" value="'.esc_attr($options['test-email-message']).'" class="regular-text"></td></tr></table>';
+	}
+
+	private function maybe_render_conflicts() {
+		global $wp_filter;
+		$filters = $wp_filter['phpmailer_init']->callbacks;
+		if (count($filters) === 1) {
+			return;
+		}
+
+		$plugins = [
+			'azrcrv-smtp/azrcrv-smtp.php'   => 'SMTP',
+			'wp-mail-smtp/wp-mail-smtp.php' => 'WP Mail SMTP',
+			'post-smtp/postman-smtp.php'    => 'Post SMTP',
+			'easy-wp-smtp/easy-wp-smtp.php' => 'Easy WP SMTP',
+			'fluent-smtp/fluent-smtp.php'   => 'FluentSMTP',
+			'wp-smtp/wp-smtp.php'           => 'Solid Mail',
+			'smtp-mailer/main.php'          => 'SMTP Mailer',
+			'gosmtp/gosmtp.php'             => 'GoSMTP',
+		];
+
+		$conflicts = [];
+		foreach ($plugins as $slug => $name) {
+			if (!is_plugin_active($slug)) {
+				continue;
+			}
+			$conflicts[] = $name;
+		}
+
+		echo '<hr>';
+
+		$conflicting_count = count($conflicts);
+		if ($conflicting_count !== 0) {
+			$msg = _n(
+				'This plugin can cause conflicts:',
+				'Those plugins can cause conflicts:',
+				$conflicting_count,
+				'xsmtp'
+			);
+			$msg .= ' '.implode(', ', $conflicts).'.';
+			echo esc_html($msg);
+			return;
+		}
+
+		$msg  = '<details><summary>'.esc_html__('Something can interfer with this plugin functionality. Debug.', 'xsmtp').'</summary><pre style="background-color: white;">';
+		$msg .= print_r($filters, true); // phpcs:ignore WordPress.PHP.DevelopmentFunctions.error_log_print_r
+		$msg .= '</pre></details>';
+
+		echo wp_kses_post($msg);
 	}
 
 	public function help() {
