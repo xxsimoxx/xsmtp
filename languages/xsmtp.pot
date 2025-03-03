@@ -1,0 +1,180 @@
+# Copyright (C) 2025 Gieffe edizioni srl
+# This file is distributed under the GPL2.
+msgid ""
+msgstr ""
+"Project-Id-Version: X SMTP 1.0.0\n"
+"Report-Msgid-Bugs-To: https://wordpress.org/support/plugin/xsmtp\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"POT-Creation-Date: 2025-03-03T10:43:48+00:00\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"X-Generator: WP-CLI 2.11.0\n"
+"X-Domain: xsmtp\n"
+
+#. Plugin Name of the plugin
+#: xsmtp.php
+msgid "X SMTP"
+msgstr ""
+
+#. Plugin URI of the plugin
+#: xsmtp.php
+msgid "https://software.gieffeedizioni.it"
+msgstr ""
+
+#. Description of the plugin
+#: xsmtp.php
+msgid "Easily configure Simple Mail Transport Protocol (SMTP)."
+msgstr ""
+
+#. Author of the plugin
+#: xsmtp.php
+msgid "Gieffe edizioni srl"
+msgstr ""
+
+#. Author URI of the plugin
+#: xsmtp.php
+msgid "https://www.gieffeedizioni.it"
+msgstr ""
+
+#: xsmtp.php:52
+msgid "Settings"
+msgstr ""
+
+#. Translators: %s is the plugin name
+#: xsmtp.php:144
+msgid "Import settings from %s"
+msgstr ""
+
+#: xsmtp.php:152
+msgid "Seems that a configuration can be imported."
+msgstr ""
+
+#: xsmtp.php:167
+msgid "SMTP Settings"
+msgstr ""
+
+#: xsmtp.php:168
+msgid "Test"
+msgstr ""
+
+#: xsmtp.php:182
+msgid "Save"
+msgstr ""
+
+#: xsmtp.php:187
+msgid "Send"
+msgstr ""
+
+#: xsmtp.php:209
+msgid "Saved."
+msgstr ""
+
+#: xsmtp.php:268
+msgid "Options imported. Please check the new settings."
+msgstr ""
+
+#: xsmtp.php:293
+msgid "Sent."
+msgstr ""
+
+#: xsmtp.php:295
+msgid "An error occurred."
+msgstr ""
+
+#: xsmtp.php:303
+msgid "SMTP Host"
+msgstr ""
+
+#: xsmtp.php:304
+msgid "Your mail server address."
+msgstr ""
+
+#: xsmtp.php:305
+msgid "SMTP Encryption Type"
+msgstr ""
+
+#: xsmtp.php:310
+msgid "For most servers SSL/TLS is the recommended encryption type."
+msgstr ""
+
+#: xsmtp.php:311
+msgid "SMTP Port"
+msgstr ""
+
+#: xsmtp.php:313
+msgid "The port to your mail server (Standards are 25 for no encryption, 465 for SSL/TLS and 587 for StartTLS)."
+msgstr ""
+
+#: xsmtp.php:314
+msgid "SMTP Username"
+msgstr ""
+
+#: xsmtp.php:316
+msgid "The username to login to your mail server."
+msgstr ""
+
+#: xsmtp.php:317
+msgid "SMTP Password"
+msgstr ""
+
+#: xsmtp.php:320
+msgid "The password to login to your mail server. The password is stored in plain text in the database."
+msgstr ""
+
+#: xsmtp.php:321
+msgid "From Email Address"
+msgstr ""
+
+#: xsmtp.php:323
+msgid "This will be used as the \"From\" email address; leave blank to use \"%s\"."
+msgstr ""
+
+#: xsmtp.php:324
+msgid "From Email Name"
+msgstr ""
+
+#: xsmtp.php:326
+msgid "This will be used as the name for the \"From\" email address; leave blank to use \"%s\"."
+msgstr ""
+
+#: xsmtp.php:332
+msgid "Test your configuration by sending a test email."
+msgstr ""
+
+#: xsmtp.php:333
+msgid "Email Address"
+msgstr ""
+
+#: xsmtp.php:335
+msgid "Email Subject"
+msgstr ""
+
+#: xsmtp.php:337
+msgid "Email Message"
+msgstr ""
+
+#: xsmtp.php:371
+msgid "This plugin can cause conflicts:"
+msgid_plural "Those plugins can cause conflicts:"
+msgstr[0] ""
+msgstr[1] ""
+
+#: xsmtp.php:382
+msgid "Something can interfer with this plugin functionality. Debug."
+msgstr ""
+
+#: xsmtp.php:391
+msgid ""
+"<b>Improve ClassicPress email deliverability.</b><br>\n"
+"\t\t\t\tConfigure a SMTP server to send email from your site.<br>\n"
+"\t\t\t\tFrom this page you can configure the parameters of the SMTP server that will be used to send the e-mail.<br>\n"
+"\t\t\t\tNotice that servers using OAuth (like gmail.com) are not supported.<br>\n"
+"\t\t\t\tThis plugin is multisite compatible. Each site should be configured."
+msgstr ""
+
+#: xsmtp.php:409
+msgid "Usage"
+msgstr ""

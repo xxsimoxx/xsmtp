@@ -140,6 +140,7 @@ class XSMTP {
 				'_xsmtp' => wp_create_nonce('import'),
 			]);
 			$string .= '<a href ="'.$url.'" >';
+			// Translators: %s is the plugin name
 			$string .= sprintf(esc_html__('Import settings from %s', 'xsmtp'), esc_html($name));
 			$string .= '</a> | ';
 		}
