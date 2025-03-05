@@ -356,7 +356,11 @@ class XSMTP {
 	private function maybe_render_conflicts() {
 		global $wp_filter;
 		$filters = $wp_filter['phpmailer_init']->callbacks;
-		if (count($filters) === 1) {
+		$fcount = 0;
+		foreach ($filters as $filter) {
+			$fcount += count($filter);
+		}
+		if ($fcount === 1) {
 			return;
 		}
 
