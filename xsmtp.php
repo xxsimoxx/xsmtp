@@ -89,6 +89,13 @@ class XSMTP {
 			return;
 		}
 		$phpmailer->SMTPSecure = $opts['smtp-encryption-type'];
+		$phpmailer->SMTPOptions = [
+			'ssl' => [
+				'verify_peer' => false,
+				'verify_peer_name' => false,
+				'allow_self_signed' => true
+			],
+		];
 	}
 
 	public function get_options() {
@@ -285,6 +292,14 @@ class XSMTP {
 
 		$phpmailer->SMTPDebug   = 1;
 		$phpmailer->Timeout     = 15;
+		$phpmailer->SMTPOptions = [
+			'ssl' => [
+				'verify_peer' => false,
+				'verify_peer_name' => false,
+				'allow_self_signed' => true
+			],
+		];
+
 		$phpmailer->Debugoutput = function($str) use (&$error) {
 			$error .= $str.'<br>';
 		};
