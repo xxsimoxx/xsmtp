@@ -3,7 +3,7 @@
  * Plugin Name:  X SMTP
  * Plugin URI:   https://software.gieffeedizioni.it
  * Description:  Easily configure Simple Mail Transport Protocol (SMTP).
- * Version:      1.0.0
+ * Version:      1.0.1
  * License:      GPL2
  * License URI:  https://www.gnu.org/licenses/gpl-2.0.html
  * Author:       Gieffe edizioni srl
