@@ -3,7 +3,7 @@
  * Plugin Name:  X SMTP
  * Plugin URI:   https://software.gieffeedizioni.it
  * Description:  Easily configure Simple Mail Transport Protocol (SMTP).
- * Version:      1.0.1
+ * Version:      1.0.2
  * License:      GPL2
  * License URI:  https://www.gnu.org/licenses/gpl-2.0.html
  * Author:       Gieffe edizioni srl
@@ -35,7 +35,7 @@ class XSMTP {
 	];
 
 	public function __construct() {
-		add_action('phpmailer_init', 'phpmailer_settings', apply_filters('xsmtp-phpmailer-priority', 10));
+		add_action('phpmailer_init', [$this, 'phpmailer_settings'], apply_filters('xsmtp-phpmailer-priority', 10));
 		add_action('admin_menu', [$this, 'create_menu'], 100);
 		add_action('admin_enqueue_scripts', [$this, 'scripts']);
 		add_filter('plugin_action_links', [$this, 'settings_link'], 10, 2);
